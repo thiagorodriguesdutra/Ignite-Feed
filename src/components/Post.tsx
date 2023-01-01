@@ -1,13 +1,29 @@
-import { Avatar } from './Avatar.jsx';
-import { Comment } from './Comment.jsx'
+import { Avatar } from './Avatar.js';
+import { Comment } from './Comment.js'
 
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
 import styles from './Post.module.css';
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent, InvalidEvent } from 'react';
 
-export function Post({ author, publishedAt, content }) {
+
+interface Content {
+    type: 'paragraph' | 'link',
+    content: string
+}
+
+interface PostProps {
+    author: {
+        avatarUrl: string,
+        name: string,
+        role: string
+    },
+    publishedAt: Date,
+    content: Content[]
+}
+
+export function Post({ author, publishedAt, content }: PostProps) {
     const { avatarUrl, name, role } = author;
 
     const [ comments, setComments ] = useState([
@@ -19,23 +35,22 @@ export function Post({ author, publishedAt, content }) {
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", { locale: ptBR })
     const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, { addSuffix: true, locale: ptBR });
 
-    function handleCreateNewComment() {
+    function handleCreateNewComment(event: FormEvent) {
         event.preventDefault();
-        const newCommentText = event.target.comment.value;
         setComments([...comments, newCommentText]);
         setNewCommentText('');
     }; 
     
-    function handleNewCommentChange() {
+    function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
         event.target.setCustomValidity('');
         setNewCommentText(event.target.value);
     };
 
-    function handleNewCommentInvalid() {
+    function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
         event.target.setCustomValidity('Escreva um comentário');
     };
 
-    function deleteComment(commentToDelete) {
+    function deleteComment(commentToDelete: string) {
         const commentsWithoutDeleteOne =         
         comments.filter(comment => {
             return comment !== commentToDelete;
