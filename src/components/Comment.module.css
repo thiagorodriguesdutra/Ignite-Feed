@@ -1,0 +1,99 @@
+.comment {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.comment+.comment {
+    margin-top: 1.5rem;
+}
+
+.commentBox {
+    flex: 1;
+}
+
+.commentContent {
+    height: 100%;
+    background: var(--gray-700);
+    padding: 1rem;
+    border-radius: 9px;
+}
+
+.commentContent header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.authorAndTime strong {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--gray-100);
+}
+
+.authorAndTime time {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--gray-400);
+}
+
+.commentContent button {
+    background: transparent;
+    border: 0;
+    color: var(--gray-300);
+    cursor: pointer;
+        /* 
+       Quando temos botões que são apenas ícones
+       quando damos o focus nele, a borda fica maior 
+       do que o botão, isso acontence pq a altura de 
+       um botão não é definida pelo conteúdo do botão. 
+       Ou seja, o ícone até faz o botão crescer, mas 
+       como esse ícone não está ocupando uma altura 
+       suficiente, o botão pega referência do line-height.
+    */
+
+    line-height: 0;
+    border-radius: 2px;
+}
+
+.commentContent button:hover {
+    color: var(--red-500);
+}
+
+.commentContent p {
+    margin-top: 1rem;
+    color: var(--gray-300);
+}
+
+.commentBox footer {
+    margin-top: 1rem;
+}
+
+.commentBox footer button {
+    background: transparent;
+    border: 0;
+    color: var(--gray-400);
+    cursor: pointer;
+    line-height: 0;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+}
+
+.commentBox footer button:hover {
+    color: var(--gray-100);
+}
+
+.commentBox footer button:active {
+    color: var(--green-300);
+}
+
+.commentBox footer button svg {
+    margin-right: 0.5rem;
+}
+
+.commentBox footer button span::before {
+    padding: 0 0.25rem;
+    content: '\2022';
+}
